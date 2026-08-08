@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>кино словами — авторский курс сторителлинга Стаса Бондарева</title>
+<meta name="description" content="Авторский курс устного сторителлинга Стаса Бондарева. 4 недели онлайн: живые кадры, монтаж, динамика, режиссура. Малая группа и индивидуальная работа.">
+<meta property="og:title" content="кино словами — авторский курс сторителлинга Стаса Бондарева">
+<meta property="og:description" content="4 недели онлайн: истории из вашей жизни, которые досматривают до конца.">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500&display=swap');
+
+:root{
+  --bg:#0A0A0C;
+  --bg2:#101014;
+  --txt:#F5F5F2;
+  --dim:#8E8E97;
+  --blue:#2B4BFF;
+  --blue-soft:#5C74FF;
+  --line:rgba(245,245,242,.12);
+  --disp:'Inter Tight','Inter',system-ui,sans-serif;
+  --body:'Inter',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  background:var(--bg);
+  color:var(--txt);
+  font-size:16.5px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--blue);color:#fff}
+img{display:block;max-width:100%}
+
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+h1,h2,h3{font-family:var(--disp);font-weight:500;letter-spacing:-.03em;line-height:1.04}
+h2{font-size:clamp(30px,6.4vw,52px);margin-bottom:24px}
+p+p{margin-top:.9em}
+.dim{color:var(--dim)}
+b{font-weight:500;color:var(--txt)}
+
+.brace{
+  font-family:var(--disp);font-weight:400;
+  font-size:14px;letter-spacing:.01em;
+  color:var(--blue-soft);
+  display:inline-block;margin-bottom:18px;
+}
+.brace::before{content:'('}
+.brace::after{content:')'}
+
+section{padding:84px 0}
+@media(min-width:800px){section{padding:120px 0}}
+
+/* ── кнопки ── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--disp);font-weight:500;font-size:16px;letter-spacing:-.01em;
+  padding:17px 28px;border-radius:999px;
+  text-decoration:none;border:1px solid transparent;
+  transition:background .18s,transform .12s,border-color .18s;
+}
+.btn:active{transform:scale(.98)}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{background:var(--blue-soft)}
+.btn-line{border-color:var(--line);color:var(--txt)}
+.btn-line:hover{border-color:var(--txt)}
+.btn svg{flex:none}
+
+/* ── шапка ── */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,10,12,.82);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.head{
+  display:flex;justify-content:space-between;align-items:center;
+  height:60px;
+}
+.head .logo{
+  font-family:var(--disp);font-weight:500;font-size:16px;
+  letter-spacing:-.02em;color:var(--txt);text-decoration:none;
+}
+.head .tg{
+  font-family:var(--disp);font-size:14px;color:var(--dim);
+  text-decoration:none;transition:color .18s;
+}
+.head .tg::before{content:'('}
+.head .tg::after{content:')'}
+.head .tg:hover{color:var(--txt)}
+
+/* ── HERO гибрид ── */
+.hero{padding:64px 0 0}
+.hero .brace{margin-bottom:22px}
+.hero h1{
+  font-size:clamp(58px,15vw,140px);
+  font-weight:600;letter-spacing:-.045em;line-height:.95;
+}
+.hero .sub{
+  margin-top:26px;max-width:520px;
+  font-size:clamp(17px,2.4vw,20px);color:var(--dim);
+}
+.hero .sub b{color:var(--txt)}
+.hero .cta{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap}
+.hero .meta{
+  margin-top:36px;padding-top:18px;border-top:1px solid var(--line);
+  display:flex;gap:8px 22px;flex-wrap:wrap;
+  font-family:var(--disp);font-size:15px;color:#C9C9CF;
+}
+.hero .meta span::before{content:'·';color:var(--blue-soft);margin-right:8px}
+.hero .meta span:first-child::before{content:''}
+
+.hero-photo{
+  margin-top:44px;position:relative;
+  height:min(72vh,560px);overflow:hidden;
+}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 26%}
+.hero-photo::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,10,12,.28),transparent 30%,transparent 62%,rgba(10,10,12,.94));
+}
+.hero-photo .cap{
+  position:absolute;left:20px;bottom:16px;z-index:2;
+  font-family:var(--disp);font-size:13px;color:var(--dim);
+}
+
+/* ── программа ── */
+#program{padding-top:64px}
+.week{
+  border-top:1px solid var(--line);
+}
+.week:last-of-type{border-bottom:1px solid var(--line)}
+.week summary{
+  list-style:none;cursor:pointer;
+  display:flex;align-items:baseline;gap:16px;
+  padding:22px 0;position:relative;
+}
+.week summary::-webkit-details-marker{display:none}
+.week .num{
+  font-family:var(--disp);font-weight:400;font-size:15px;
+  color:var(--blue-soft);flex:none;width:30px;
+}
+.week .name{
+  font-family:var(--disp);font-weight:500;letter-spacing:-.02em;
+  font-size:clamp(24px,5.4vw,34px);line-height:1.1;
+}
+.week .plus{
+  margin-left:auto;flex:none;
+  font-family:var(--disp);font-weight:400;font-size:26px;color:var(--dim);
+  transition:transform .22s;line-height:1;
+}
+.week[open] .plus{transform:rotate(45deg);color:var(--blue-soft)}
+.week .body{padding:0 0 26px 46px;max-width:620px}
+.week .body p{color:var(--dim)}
+.week .tools{
+  margin:16px 0 0;padding:0;list-style:none;
+  display:flex;flex-wrap:wrap;gap:8px;
+}
+.week .tools li{
+  font-family:var(--disp);font-size:13px;
+  border:1px solid var(--line);border-radius:999px;
+  padding:6px 13px;color:var(--dim);
+}
+.week .res{
+  margin-top:18px;font-family:var(--disp);font-size:16.5px;
+  color:var(--txt);
+}
+.week .res::before{content:'→ ';color:var(--blue-soft)}
+@media(max-width:600px){.week .body{padding-left:0}}
+.week.q .name{font-size:clamp(19px,4.8vw,26px)}
+.week.q .body{padding-left:0}
+.qbody p{color:var(--dim)}
+.qbody p b{color:var(--txt)}
+
+.totals{
+  margin-top:34px;
+  display:flex;flex-wrap:wrap;gap:8px 20px;
+  font-family:var(--disp);font-size:14px;color:var(--dim);
+}
+.totals span::before{content:'+';color:var(--blue-soft);margin-right:7px}
+
+/* ── о чём курс ── */
+.about p{max-width:640px}
+.about .big{
+  font-family:var(--disp);font-weight:500;letter-spacing:-.02em;
+  font-size:clamp(21px,3.6vw,28px);line-height:1.3;color:var(--txt);
+}
+.notbox{
+  margin-top:44px;padding:26px 24px;
+  border:1px solid var(--line);border-radius:16px;
+  max-width:640px;
+}
+.notbox .brace{margin-bottom:12px}
+.notbox p{color:var(--dim);font-size:15.5px}
+
+/* ── знакомо ── */
+.sit{border-top:1px solid var(--line);padding:18px 0;max-width:680px}
+.sit:last-of-type{border-bottom:1px solid var(--line)}
+.sit b{display:block;font-family:var(--disp);font-weight:500;font-size:17.5px;letter-spacing:-.01em}
+.sit span{font-size:15px;color:var(--dim)}
+.after{
+  margin-top:36px;max-width:600px;
+  font-family:var(--disp);font-weight:500;letter-spacing:-.02em;
+  font-size:clamp(20px,3.6vw,26px);line-height:1.35;
+}
+.after em{font-style:normal;color:var(--blue-soft)}
+
+/* ── результат ── */
+.verb{
+  display:grid;grid-template-columns:1fr;gap:4px;
+  border-top:1px solid var(--line);padding:20px 0;
+}
+.verb:last-of-type{border-bottom:1px solid var(--line)}
+.verb b{
+  font-family:var(--disp);font-weight:500;letter-spacing:-.025em;
+  font-size:clamp(26px,6vw,38px);line-height:1.05;
+}
+.verb p{color:var(--dim);max-width:560px;font-size:15.5px}
+@media(min-width:800px){
+  .verb{grid-template-columns:280px 1fr;gap:28px;align-items:baseline}
+}
+
+/* ── формат недели ── */
+.fcards{display:grid;gap:12px;margin-top:8px}
+@media(min-width:700px){.fcards{grid-template-columns:1fr 1fr}}
+.fcard{
+  border:1px solid var(--line);border-radius:16px;
+  padding:22px 22px 24px;
+}
+.fcard .brace{margin-bottom:8px;font-size:13px}
+.fcard b{font-family:var(--disp);font-weight:500;font-size:18px;letter-spacing:-.015em;display:block;margin-bottom:6px}
+.fcard p{font-size:14.5px;color:var(--dim)}
+.cycle{
+  margin-top:36px;padding:26px 22px;
+  background:var(--blue);border-radius:16px;color:#fff;
+}
+.cycle .lbl{font-family:var(--disp);font-size:13px;opacity:.75;display:block;margin-bottom:10px}
+.cycle .chain{
+  font-family:var(--disp);font-weight:500;letter-spacing:-.015em;
+  font-size:clamp(16px,2.8vw,20px);line-height:1.5;
+}
+.cycle .chain i{font-style:normal;opacity:.6;padding:0 4px}
+.cycle p{margin-top:12px;font-size:14.5px;opacity:.85;max-width:560px}
+
+.photo{
+  position:relative;border-radius:16px;overflow:hidden;
+  margin-top:44px;
+}
+.photo img{width:100%;height:auto}
+.photo .cap{
+  position:absolute;left:16px;bottom:12px;
+  font-family:var(--disp);font-size:12.5px;color:rgba(245,245,242,.85);
+  text-shadow:0 1px 8px rgba(0,0,0,.6);
+}
+.photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(10,10,12,.45))}
+
+/* ── онлайн ── */
+.online-quote{
+  margin-top:30px;padding-left:20px;max-width:620px;
+  border-left:2px solid var(--blue);
+  font-family:var(--disp);font-weight:400;
+  font-size:clamp(17px,2.8vw,20px);line-height:1.5;color:var(--txt);
+}
+.online p{max-width:640px}
+
+/* ── тренер ── */
+.trainer-grid{display:grid;gap:36px}
+@media(min-width:840px){.trainer-grid{grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start}}
+.trainer-photos{display:grid;gap:12px}
+.trainer-photos .ph{border-radius:16px;overflow:hidden}
+.trainer-photos .ph img{width:100%;height:auto}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:28px 0}
+.stat b{font-family:var(--disp);font-weight:600;letter-spacing:-.03em;font-size:clamp(32px,6vw,44px);line-height:1;display:block}
+.stat span{font-family:var(--disp);font-size:13px;color:var(--dim)}
+.cred{border-top:1px solid var(--line);padding:16px 0}
+.cred:last-of-type{border-bottom:1px solid var(--line)}
+.cred b{font-family:var(--disp);font-weight:500;font-size:16.5px;display:block}
+.cred span{font-size:14.5px;color:var(--dim)}
+
+/* ── детали ── */
+.details-grid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+@media(min-width:700px){.details-grid{grid-template-columns:1fr 1fr}}
+.dcell{background:var(--bg);padding:22px}
+.dcell .brace{font-size:12.5px;margin-bottom:8px}
+.dcell b{font-family:var(--disp);font-weight:500;font-size:17.5px;letter-spacing:-.015em;display:block;margin-bottom:5px}
+.dcell p{font-size:14.5px;color:var(--dim)}
+
+/* ── условия ── */
+.terms{display:grid;gap:14px;margin-top:8px}
+@media(min-width:700px){.terms{grid-template-columns:1fr 1fr}}
+.term{
+  border:1px solid var(--line);border-radius:20px;
+  padding:34px 28px 36px;
+}
+.term .brace{margin-bottom:14px}
+.term .val{
+  font-family:var(--disp);font-weight:600;letter-spacing:-.035em;
+  font-size:clamp(38px,9vw,58px);line-height:1;display:block;
+}
+.term .val small{font-size:.5em;font-weight:500;letter-spacing:-.01em;color:var(--dim)}
+.term p{margin-top:14px;font-size:15px;color:var(--dim);max-width:400px}
+
+/* ── финал ── */
+.finale{position:relative;overflow:hidden}
+.finale .photo{margin:0 0 44px}
+.finale h2{font-size:clamp(34px,7.6vw,62px);max-width:760px}
+.finale h2 em{font-style:normal;color:var(--blue-soft)}
+.finale .lead{margin-top:18px;max-width:540px;color:var(--dim)}
+.finale .cta{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap}
+.finale .ps{margin-top:22px;font-family:var(--disp);font-size:13.5px;color:var(--dim)}
+
+footer{
+  border-top:1px solid var(--line);
+  padding:26px 0 34px;
+  font-family:var(--disp);font-size:13px;color:var(--dim);
+}
+footer .wrap{display:flex;justify-content:space-between;gap:10px 20px;flex-wrap:wrap}
+footer a{color:var(--dim);text-decoration:none}
+footer a:hover{color:var(--txt)}
+
+/* появление */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.rv.on{opacity:1;transform:none}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--blue-soft);outline-offset:3px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap head">
+    <a class="logo" href="#top">кино словами</a>
+    <a class="tg" href="https://t.me/stassbondarev" target="_blank" rel="noopener">написать стасу</a>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero" id="top">
+  <div class="wrap">
+    <span class="brace">авторский курс Стаса Бондарева</span>
+    <h1>кино<br>словами</h1>
+    <p class="sub">Курс устного сторителлинга. За 4 недели вы научитесь рассказывать истории из своей жизни так, чтобы их <b>слушали и досматривали до конца</b> — как кино.</p>
+    <div class="cta">
+      <a class="btn btn-line" href="#program">программа</a>
+      <a class="btn btn-line" href="#terms">условия</a>
+    </div>
+    <div class="meta">
+      <span>онлайн</span><span>4 недели</span><span>мини-группа до 10 человек</span><span>вечернее время</span>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="img/hero.jpg" alt="Стас Бондарев пишет структуру истории на доске во время занятия" fetchpriority="high">
+    <span class="cap">занятие по методике «кино словами»</span>
+  </div>
+</div>
+
+<!-- ═══ ЗНАКОМО ═══ -->
+<section id="znakomo" style="padding-top:84px">
+  <div class="wrap">
+    <span class="brace rv">знакомо?</span>
+    <h2 class="rv">Ситуации, из которых вырос этот курс</h2>
+    <div style="margin-top:32px">
+      <div class="sit rv"><b>«Живу интересно, а рассказать не могу»</b><span>в пересказе всё почему-то тускнеет</span></div>
+      <div class="sit rv"><b>«Долго запрягаю»</b><span>объясняете контекст дольше, чем длится сама история</span></div>
+      <div class="sit rv"><b>«Меня перебивают»</b><span>собеседник теряет интерес на середине</span></div>
+      <div class="sit rv"><b>«Было удивительно — звучит скучно»</b><span>событие невероятное, а эмоций ноль</span></div>
+      <div class="sit rv"><b>«Потерял мысль»</b><span>начали уверенно и забыли, к чему вели</span></div>
+      <div class="sit rv"><b>«У других истории интереснее»</b><span>кажется, в вашей жизни просто нет материала</span></div>
+    </div>
+    <p class="after rv">Ни одна из этих ситуаций — не про скучную жизнь. Все они — про отсутствие инструментов. <em>А инструментам можно научиться.</em></p>
+  </div>
+</section>
+
+<!-- ═══ О ЧЁМ КУРС ═══ -->
+<section class="about" style="padding-top:0">
+  <div class="wrap rv">
+    <span class="brace">о чём курс</span>
+    <p class="big">Историю можно рассказать по-разному: снять фильм, написать книгу, записать Reels — или просто рассказать человеку напротив. Здесь мы работаем с последней формой — самой частой и самой недооценённой.</p>
+    <p class="dim" style="margin-top:20px">Устный сторителлинг — навык ярко и интересно рассказывать истории из собственной жизни: в разговоре, на работе, со сцены. Так, чтобы вас не просто поняли, а прочувствовали.</p>
+
+    <div class="notbox rv">
+      <span class="brace">честно о границах</span>
+      <p>Мы не учим продающим выступлениям, презентациям и рекламным текстам — это отдельные навыки. Курс про фундамент: превращать свой опыт в истории, которые интересно слушать. Этот фундамент потом усиливает всё остальное — работу, блог, сцену.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ КАК УСТРОЕН КУРС ═══ -->
+<section id="program" style="padding-top:0">
+  <div class="wrap">
+    <span class="brace rv">программа</span>
+    <h2 class="rv">Как устроен курс</h2>
+    <p class="dim rv" style="max-width:600px">Курс идёт 4 недели. Каждая неделя — полный цикл работы с новым инструментом:</p>
+
+    <div style="margin-top:28px"><div class="fcards" style="margin-top:32px">
+      <div class="fcard rv"><span class="brace">видеоурок</span><b>10–15 минут теории</b><p>Один инструмент и домашнее задание. Смотрите когда удобно, применяете сразу на своей истории.</p></div>
+      <div class="fcard rv"><span class="brace">групповое занятие</span><b>≈ 2,5 часа практики</b><p>Онлайн, в мини-группах. Рассказываете, слушаете других, получаете живой зрительский отклик.</p></div>
+      <div class="fcard rv"><span class="brace">личная встреча</span><b>45–60 минут со Стасом</b><p>Дорабатываете именно ваши истории и вместе режиссируете их перед следующим занятием.</p></div>
+      <div class="fcard rv"><span class="brace">домашняя практика</span><b>30–60 минут в неделю</b><p>Запись историй и упражнения. Камера — тренажёр: вы впервые видите себя глазами слушателя.</p></div>
+    </div>
+
+    <div class="cycle rv">
+      <span class="lbl">(принцип курса)</span>
+      <p class="chain">теория <i>→</i> практика <i>→</i> зрительский отклик <i>→</i> личная доработка <i>→</i> новая практика</p>
+      <p>Поэтому в конце у вас не «понимание инструментов», а истории, которые вы рассказали, доработали и рассказали снова — лучше.</p>
+    </div>
+
+    </div>
+
+    <p class="dim rv" style="max-width:600px;margin:56px 0 32px">Каждый следующий блок опирается на предыдущий. К финалу у вас не набор приёмов, а собственная система рассказывания историй — <b>4 недели, как собирается фильм:</b></p>
+
+    <details class="week rv" open>
+      <summary><span class="num">01</span><span class="name">живые кадры</span><span class="plus">+</span></summary>
+      <div class="body">
+        <p>Превращаете воспоминания в сцены, которые возникают в голове слушателя. Вместо пересказа фактов — кадры, которые хочется смотреть дальше.</p>
+        <ul class="tools"><li>живые сцены</li><li>эмоциональное погружение</li><li>ощущения, действия, диалоги</li></ul>
+        <p class="res">истории цепляют с первых секунд</p>
+      </div>
+    </details>
+
+    <details class="week rv">
+      <summary><span class="num">02</span><span class="name">монтаж</span><span class="plus">+</span></summary>
+      <div class="body">
+        <p>Выстраиваете сцены так, чтобы держать внимание и раскрывать историю постепенно — без лишней информации.</p>
+        <ul class="tools"><li>структура истории</li><li>удержание внимания</li><li>напряжение между сценами</li></ul>
+        <p class="res">вас хочется дослушать до конца</p>
+      </div>
+    </details>
+
+    <details class="week rv">
+      <summary><span class="num">03</span><span class="name">динамика</span><span class="plus">+</span></summary>
+      <div class="body">
+        <p>Управляете темпом, паузами и эмоциональной насыщенностью — слушатели не следят за событиями, а проживают их вместе с вами.</p>
+        <ul class="tools"><li>темп и паузы</li><li>усиление эмоций</li><li>выразительная подача</li></ul>
+        <p class="res">истории воспринимаются как кино</p>
+      </div>
+    </details>
+
+    <details class="week rv">
+      <summary><span class="num">04</span><span class="name">режиссура</span><span class="plus">+</span></summary>
+      <div class="body">
+        <p>Собираете одну и ту же историю по-разному — под аудиторию, ситуацию и цель. И готовите одну из историй к финальному показу.</p>
+        <ul class="tools"><li>адаптация под слушателя</li><li>маршрут рассказа</li><li>финальная сборка</li></ul>
+        <p class="res">несколько отработанных историй + премьера на финальном показе</p>
+      </div>
+    </details>
+
+    <div class="totals rv">
+      <span>4 видеоурока</span><span>4 групповых занятия</span><span>4 личные встречи со Стасом</span><span>чат участников</span><span>финальный показ</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ РЕЗУЛЬТАТ ═══ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <span class="brace rv">после курса</span>
+    <h2 class="rv">Пять глаголов, которые останутся с вами</h2>
+    <div style="margin-top:32px">
+      <div class="verb rv"><b>замечать</b><p>яркие истории в собственной жизни — даже те, что казались обычными</p></div>
+      <div class="verb rv"><b>собирать</b><p>их так, чтобы держать внимание от первой фразы до последней</p></div>
+      <div class="verb rv"><b>показывать</b><p>события через кино в голове слушателя, а не пересказ фактов</p></div>
+      <div class="verb rv"><b>управлять</b><p>вниманием, эмоциями и темпом рассказа</p></div>
+      <div class="verb rv"><b>режиссировать</b><p>одну историю по-разному — в зависимости от того, кому и зачем рассказываете</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ТРЕНЕР ═══ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <span class="brace rv">о тренере</span>
+    <div class="trainer-grid" style="margin-top:8px">
+      <div class="trainer-photos rv">
+        <div class="ph"><img src="img/stage.jpg" alt="Стас Бондарев на сцене моноспектакля «НБЛ»" loading="lazy"></div>
+      </div>
+      <div>
+        <h2 class="rv">Стас Бондарев</h2>
+        <p class="dim rv" style="max-width:560px">Тренер по публичным выступлениям и сторителлингу, актёр театра и кино. 7 лет учит людей рассказывать истории — на сцене и в жизни.</p>
+
+        <div class="stats rv">
+          <div class="stat"><b>2000+</b><span>учеников</span></div>
+          <div class="stat"><b>12 лет</b><span>в профессии</span></div>
+          <div class="stat"><b>7 лет</b><span>тренерской работы</span></div>
+        </div>
+
+        <div class="rv">
+          <div class="cred"><b>РГИСИ</b><span>артист драматического театра и кино</span></div>
+          <div class="cred"><b>Human Development Academy</b><span>тренер-методолог развивающих программ</span></div>
+          <div class="cred"><b>PART Academy, Академия Седы Каспаровой, ИМИСП</b><span>корпоративные и образовательные программы по речи</span></div>
+          <div class="cred"><b>Моноспектакль «НБЛ»</b><span>полностью из личных историй. Три года собирает залы без декораций и партнёров — только за счёт того, как рассказаны истории</span></div>
+        </div>
+
+        <p class="dim rv" style="margin-top:24px;max-width:560px">На стыке актёрского мастерства, техники речи и импровизации родилась методика <b>«кино словами»</b>: сторителлинг не как набор шаблонов, а как умение создать у слушателя ощущение, будто он сам оказался внутри истории. Методика сложилась в преподавании — и прошла проверку сценой.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ЕСЛИ ОСТАЛИСЬ ВОПРОСЫ ═══ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <span class="brace rv">если остались вопросы</span>
+
+    <details class="week q rv" style="margin-top:8px">
+      <summary><span class="name">что важно знать до старта</span><span class="plus">+</span></summary>
+      <div class="body qbody">
+        <p><b>Расписание.</b> Групповые занятия — вечером, раз в неделю, с 19:00 до 21:30, во вторник, среду или четверг. День выберем вместе с группой.</p>
+        <p><b>Нагрузка.</b> 4–5 часов в неделю: занятие, личная встреча, видеоурок и 30–60 минут домашней практики.</p>
+        <p><b>Группа.</b> Мини-группа до 10 человек: достаточно людей для живой аудитории — и достаточно мало, чтобы каждый рассказывал на каждой встрече.</p>
+        <p><b>Формат.</b> Онлайн, из любого города. Камера, наушники и тихое место на 2,5 часа. Истории у вас уже есть.</p>
+      </div>
+    </details>
+
+    <details class="week q rv">
+      <summary><span class="name">«речь — это же только вживую?»</span><span class="plus">+</span></summary>
+      <div class="body qbody">
+        <p>Если бы мы ставили голос и дыхание — да, очный формат был бы сильнее. Но мы учимся рассказывать истории. Этот навык растёт из другого: регулярная практика с разными слушателями, живая реакция и многократная доработка рассказа. Именно так построен курс — и в онлайне это работает полноценно.</p>
+        <p>Онлайн при этом добавляет своё: больше практики вместо дороги, участники из разных городов и записи ваших рассказов, на которых виден реальный рост от первой недели к четвёртой.</p>
+        <p class="online-quote">«Последние 4 года я тренирую людей в крупных онлайн-программах по развитию речи. Этот курс собран из того опыта — онлайн здесь не компромисс, а осознанно выбранный формат».</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══ УСЛОВИЯ ═══ -->
+<section id="terms" style="padding-top:0">
+  <div class="wrap">
+    <span class="brace rv">условия участия</span>
+    <div class="terms">
+      <div class="term rv">
+        <span class="brace">стоимость</span>
+        <span class="val">25 000 <small>₽</small></span>
+        <p>Полный курс: 4 групповых занятия, 4 личные встречи со Стасом, видеоуроки, чат участников и финальный показ.</p>
+      </div>
+      <div class="term rv">
+        <span class="brace">старт</span>
+        <span class="val">вторая половина августа</span>
+        <p>Стартуем, как только соберётся группа. Напишите Стасу — он сориентирует по датам и забронирует за вами место.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ФИНАЛ ═══ -->
+<section class="finale" style="padding-top:0">
+  <div class="wrap">
+    <div class="photo rv">
+      <img src="img/group.jpg" alt="Участники занятия отрабатывают истории в парах, Стас — у доски" loading="lazy" style="max-height:460px;object-fit:cover;width:100%;object-position:50% 45%">
+    </div>
+    <div class="rv">
+      <h2>Ваши истории уже случились. <em>Осталось научиться их рассказывать.</em></h2>
+      <p class="lead">Напишите Стасу — он ответит на вопросы и расскажет о ближайшем потоке.</p>
+      <div class="cta">
+        <a class="btn btn-blue" href="https://t.me/stassbondarev" target="_blank" rel="noopener">хочу стать участником</a>
+      </div>
+      <p class="ps">телеграм @stassbondarev — ответ лично, без ботов и рассылок</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>кино словами — авторский курс Стаса Бондарева</span>
+    <span><a href="https://t.me/stassbondarev" target="_blank" rel="noopener">telegram</a> · <a href="https://www.instagram.com/stassbondarev" target="_blank" rel="noopener">instagram*</a></span>
+  </div>
+  <div class="wrap" style="margin-top:12px;opacity:.5;font-size:10.5px">
+    <span>* Meta признана экстремистской организацией и запрещена на территории РФ</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('on')});return}
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target)}});
+  },{threshold:.1});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
