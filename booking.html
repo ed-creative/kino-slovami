@@ -121,13 +121,13 @@
     <h1 class="heading">Запись на индивидуальное</h1>
     <p class="subhead">Выбери удобный слот — Стас подтвердит в личке</p>
 
-    <div class="day-label">пятница, 5 сентября</div>
+    <div class="day-label">пятница, 4 сентября</div>
     <div class="slots-grid" id="fri-slots"></div>
 
-    <div class="day-label">суббота, 6 сентября</div>
+    <div class="day-label">суббота, 5 сентября</div>
     <div class="slots-grid" id="sat-slots"></div>
 
-    <div class="day-label">воскресенье, 7 сентября</div>
+    <div class="day-label">воскресенье, 6 сентября</div>
     <div class="slots-grid" id="sun-slots"></div>
 
     <div class="form-section" id="form-section">
@@ -193,30 +193,30 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 const SLOTS = [
-  { id: 'fri-0930', day: 'Пт', date: '5 сент', time: '09:30–10:30', group: 'fri' },
-  { id: 'fri-1030', day: 'Пт', date: '5 сент', time: '10:30–11:30', group: 'fri' },
-  { id: 'fri-1130', day: 'Пт', date: '5 сент', time: '11:30–12:30', group: 'fri' },
-  { id: 'fri-1830', day: 'Пт', date: '5 сент', time: '18:30–19:30', group: 'fri' },
-  { id: 'fri-1930', day: 'Пт', date: '5 сент', time: '19:30–20:30', group: 'fri' },
-  { id: 'fri-2030', day: 'Пт', date: '5 сент', time: '20:30–21:30', group: 'fri' },
-  { id: 'sat-0930', day: 'Сб', date: '6 сент', time: '09:30–10:30', group: 'sat' },
-  { id: 'sat-1030', day: 'Сб', date: '6 сент', time: '10:30–11:30', group: 'sat' },
-  { id: 'sat-1400', day: 'Сб', date: '6 сент', time: '14:00–15:00', group: 'sat' },
-  { id: 'sat-1500', day: 'Сб', date: '6 сент', time: '15:00–16:00', group: 'sat' },
-  { id: 'sat-1600', day: 'Сб', date: '6 сент', time: '16:00–17:00', group: 'sat' },
-  { id: 'sat-1700', day: 'Сб', date: '6 сент', time: '17:00–18:00', group: 'sat' },
-  { id: 'sat-1800', day: 'Сб', date: '6 сент', time: '18:00–19:00', group: 'sat' },
-  { id: 'sat-1900', day: 'Сб', date: '6 сент', time: '19:00–20:00', group: 'sat' },
-  { id: 'sat-2000', day: 'Сб', date: '6 сент', time: '20:00–21:00', group: 'sat' },
-  { id: 'sat-2100', day: 'Сб', date: '6 сент', time: '21:00–22:00', group: 'sat' },
-  { id: 'sun-1400', day: 'Вс', date: '7 сент', time: '14:00–15:00', group: 'sun' },
-  { id: 'sun-1500', day: 'Вс', date: '7 сент', time: '15:00–16:00', group: 'sun' },
-  { id: 'sun-1600', day: 'Вс', date: '7 сент', time: '16:00–17:00', group: 'sun' },
-  { id: 'sun-1700', day: 'Вс', date: '7 сент', time: '17:00–18:00', group: 'sun' },
-  { id: 'sun-1800', day: 'Вс', date: '7 сент', time: '18:00–19:00', group: 'sun' },
-  { id: 'sun-1900', day: 'Вс', date: '7 сент', time: '19:00–20:00', group: 'sun' },
-  { id: 'sun-2000', day: 'Вс', date: '7 сент', time: '20:00–21:00', group: 'sun' },
-  { id: 'sun-2100', day: 'Вс', date: '7 сент', time: '21:00–22:00', group: 'sun' },
+  { id: 'fri-0930', day: 'Пт', date: '4 сент', time: '09:30–10:30', group: 'fri' },
+  { id: 'fri-1030', day: 'Пт', date: '4 сент', time: '10:30–11:30', group: 'fri' },
+  { id: 'fri-1130', day: 'Пт', date: '4 сент', time: '11:30–12:30', group: 'fri' },
+  { id: 'fri-1830', day: 'Пт', date: '4 сент', time: '18:30–19:30', group: 'fri' },
+  { id: 'fri-1930', day: 'Пт', date: '4 сент', time: '19:30–20:30', group: 'fri' },
+  { id: 'fri-2030', day: 'Пт', date: '4 сент', time: '20:30–21:30', group: 'fri' },
+  { id: 'sat-0930', day: 'Сб', date: '5 сент', time: '09:30–10:30', group: 'sat' },
+  { id: 'sat-1030', day: 'Сб', date: '5 сент', time: '10:30–11:30', group: 'sat' },
+  { id: 'sat-1400', day: 'Сб', date: '5 сент', time: '14:00–15:00', group: 'sat' },
+  { id: 'sat-1500', day: 'Сб', date: '5 сент', time: '15:00–16:00', group: 'sat' },
+  { id: 'sat-1600', day: 'Сб', date: '5 сент', time: '16:00–17:00', group: 'sat' },
+  { id: 'sat-1700', day: 'Сб', date: '5 сент', time: '17:00–18:00', group: 'sat' },
+  { id: 'sat-1800', day: 'Сб', date: '5 сент', time: '18:00–19:00', group: 'sat' },
+  { id: 'sat-1900', day: 'Сб', date: '5 сент', time: '19:00–20:00', group: 'sat' },
+  { id: 'sat-2000', day: 'Сб', date: '5 сент', time: '20:00–21:00', group: 'sat' },
+  { id: 'sat-2100', day: 'Сб', date: '5 сент', time: '21:00–22:00', group: 'sat' },
+  { id: 'sun-1400', day: 'Вс', date: '6 сент', time: '14:00–15:00', group: 'sun' },
+  { id: 'sun-1500', day: 'Вс', date: '6 сент', time: '15:00–16:00', group: 'sun' },
+  { id: 'sun-1600', day: 'Вс', date: '6 сент', time: '16:00–17:00', group: 'sun' },
+  { id: 'sun-1700', day: 'Вс', date: '6 сент', time: '17:00–18:00', group: 'sun' },
+  { id: 'sun-1800', day: 'Вс', date: '6 сент', time: '18:00–19:00', group: 'sun' },
+  { id: 'sun-1900', day: 'Вс', date: '6 сент', time: '19:00–20:00', group: 'sun' },
+  { id: 'sun-2000', day: 'Вс', date: '6 сент', time: '20:00–21:00', group: 'sun' },
+  { id: 'sun-2100', day: 'Вс', date: '6 сент', time: '21:00–22:00', group: 'sun' },
 ];
 
 let takenSlots = {};
