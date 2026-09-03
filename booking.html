@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Запись на индивидуальное — Кино словами</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0e0e;
+    --surface: #181818;
+    --surface2: #212121;
+    --border: rgba(255,255,255,0.1);
+    --border-strong: rgba(255,255,255,0.18);
+    --text: #f0f0f0;
+    --text-sec: rgba(240,240,240,0.55);
+    --text-muted: rgba(240,240,240,0.32);
+    --accent: #4f8ef7;
+    --accent-bg: rgba(79,142,247,0.1);
+    --accent-border: rgba(79,142,247,0.4);
+    --danger: #e05252;
+    --danger-border: rgba(224,82,82,0.4);
+    --danger-bg: rgba(224,82,82,0.08);
+    --radius: 10px;
+  }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter Tight', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  .logo {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    text-transform: lowercase;
+  }
+
+  .heading {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+    line-height: 1.25;
+  }
+
+  .subhead {
+    font-size: 14px;
+    color: var(--text-sec);
+    margin-bottom: 2rem;
+    line-height: 1.55;
+  }
+
+  .day-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 1.5rem 0 0.65rem;
+  }
+
+  .slots-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .slot {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    background: var(--surface);
+    transition: border-color 0.15s, background 0.15s;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .slot:hover:not(.taken):not(.mine) {
+    border-color: var(--border-strong);
+    background: var(--surface2);
+  }
+
+  .slot.selected {
+    border-color: var(--text);
+    background: var(--surface2);
+  }
+
+  .slot.taken {
+    opacity: 0.35;
+    cursor: not-allowed;
+    background: var(--bg);
+  }
+
+  .slot.mine {
+    border-color: var(--accent-border);
+    background: var(--accent-bg);
+    cursor: default;
+  }
+
+  .slot-time {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .slot.mine .slot-time { color: var(--accent); }
+  .slot.taken .slot-time { color: var(--text-muted); }
+
+  .slot-date {
+    font-size: 12px;
+    color: var(--text-sec);
+  }
+
+  .slot.mine .slot-date { color: rgba(79,142,247,0.65); }
+
+  .slot-badge {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 4px;
+  }
+
+  .slot.mine .slot-badge { color: rgba(79,142,247,0.7); }
+
+  .form-section {
+    margin-top: 2rem;
+    display: none;
+  }
+
+  .form-section.visible { display: block; }
+
+  .slot-preview {
+    font-size: 13px;
+    color: var(--text-sec);
+    padding: 0.65rem 0.9rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 1.25rem;
+  }
+
+  .slot-preview strong { color: var(--text); font-weight: 500; }
+
+  .field-label {
+    font-size: 13px;
+    color: var(--text-sec);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .field-wrap { margin-bottom: 1rem; }
+
+  input[type="text"] {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 15px;
+    padding: 0.7rem 0.9rem;
+    outline: none;
+    transition: border-color 0.15s;
+    -webkit-appearance: none;
+  }
+
+  input[type="text"]:focus { border-color: var(--border-strong); }
+  input[type="text"]::placeholder { color: var(--text-muted); }
+
+  .btn-primary {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: inherit;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: opacity 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-primary:active { opacity: 0.72; }
+  .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .btn-danger {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: inherit;
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid var(--danger-border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    margin-top: 0.75rem;
+    transition: opacity 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-danger:hover { opacity: 0.75; }
+  .btn-danger:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .error-msg {
+    font-size: 13px;
+    color: var(--danger);
+    margin-top: 5px;
+    display: none;
+  }
+
+  .info-msg {
+    font-size: 13px;
+    color: var(--text-sec);
+    margin-top: 5px;
+    display: none;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0 2rem;
+  }
+
+  .lookup-label {
+    font-size: 14px;
+    color: var(--text-sec);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .lookup-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .lookup-row input { flex: 1; }
+
+  .btn-secondary {
+    padding: 0 1.1rem;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-secondary:hover { background: var(--surface2); }
+
+  .lookup-result {
+    margin-top: 0.75rem;
+    padding: 0.85rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: none;
+  }
+
+  .lookup-result.visible { display: block; }
+
+  .lookup-result-text {
+    font-size: 13px;
+    color: var(--text-sec);
+    margin-bottom: 0.5rem;
+  }
+
+  .lookup-result-text strong { color: var(--text); font-weight: 500; }
+
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+
+  .success-screen.visible { display: block; }
+
+  .success-icon {
+    font-size: 40px;
+    margin-bottom: 1.25rem;
+  }
+
+  .success-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .success-sub {
+    font-size: 14px;
+    color: var(--text-sec);
+    line-height: 1.6;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .cancel-notice {
+    display: none;
+    padding: 0.75rem 1rem;
+    background: var(--danger-bg);
+    border: 1px solid var(--danger-border);
+    border-radius: var(--radius);
+    font-size: 13px;
+    color: var(--danger);
+    margin-top: 1rem;
+  }
+
+  .cancel-notice.visible { display: block; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div id="main-form">
+    <div class="logo">кино словами</div>
+    <h1 class="heading">Запись на индивидуальное</h1>
+    <p class="subhead">Выбери удобный слот — Стас подтвердит в личке</p>
+
+    <div class="day-label">пятница, 5 сентября</div>
+    <div class="slots-grid" id="fri-slots"></div>
+
+    <div class="day-label">суббота, 6 сентября</div>
+    <div class="slots-grid" id="sat-slots"></div>
+
+    <div class="day-label">воскресенье, 7 сентября</div>
+    <div class="slots-grid" id="sun-slots"></div>
+
+    <div class="form-section" id="form-section">
+      <div class="slot-preview" id="slot-preview"></div>
+
+      <div class="field-wrap">
+        <label class="field-label" for="name-input">Имя</label>
+        <input type="text" id="name-input" placeholder="Как тебя зовут" autocomplete="given-name">
+        <div class="error-msg" id="name-error">Введи имя</div>
+      </div>
+
+      <div class="field-wrap">
+        <label class="field-label" for="tg-input">Telegram</label>
+        <input type="text" id="tg-input" placeholder="@username" autocomplete="off" autocorrect="off" autocapitalize="none">
+        <div class="error-msg" id="tg-error">Введи @username</div>
+      </div>
+
+      <button class="btn-primary" id="submit-btn" onclick="handleSubmit()">Записаться</button>
+    </div>
+
+    <hr class="divider">
+
+    <div id="lookup-section">
+      <p class="lookup-label">Уже записан? Введи свой Telegram — найдём запись</p>
+      <div class="lookup-row">
+        <input type="text" id="lookup-input" placeholder="@username" autocorrect="off" autocapitalize="none">
+        <button class="btn-secondary" onclick="handleLookup()">Найти</button>
+      </div>
+      <div class="error-msg" id="lookup-error">Введи @username</div>
+      <div class="info-msg" id="lookup-notfound">Запись с этим аккаунтом не найдена</div>
+
+      <div class="lookup-result" id="lookup-result">
+        <p class="lookup-result-text" id="lookup-result-text"></p>
+        <button class="btn-danger" id="cancel-btn" onclick="handleCancel()">Отменить запись</button>
+      </div>
+    </div>
+
+    <div class="cancel-notice" id="cancel-notice">Запись отменена. Слот освобождён.</div>
+  </div>
+
+  <div class="success-screen" id="success-screen">
+    <div class="success-icon">✓</div>
+    <p class="success-title" id="success-title"></p>
+    <p class="success-sub" id="success-sub"></p>
+    <button class="btn-danger" id="post-cancel-btn" style="max-width:280px; margin: 1.5rem auto 0; display:none;" onclick="handlePostCancel()">Отменить запись</button>
+  </div>
+
+</div>
+
+<script>
+const BOT_TOKEN = '8600476854:AAG20R64kaQ3Jb1mTKxMQ6EB7f7maCw3858';
+const CHAT_ID = '143611386';
+const STORAGE_KEY_PREFIX = 'kino_slot_';
+
+const SLOTS = [
+  { id: 'fri-0930', day: 'Пт', date: '5 сент', time: '09:30–10:30', group: 'fri' },
+  { id: 'fri-1030', day: 'Пт', date: '5 сент', time: '10:30–11:30', group: 'fri' },
+  { id: 'fri-1130', day: 'Пт', date: '5 сент', time: '11:30–12:30', group: 'fri' },
+  { id: 'fri-1830', day: 'Пт', date: '5 сент', time: '18:30–19:30', group: 'fri' },
+  { id: 'fri-1930', day: 'Пт', date: '5 сент', time: '19:30–20:30', group: 'fri' },
+  { id: 'fri-2030', day: 'Пт', date: '5 сент', time: '20:30–21:30', group: 'fri' },
+  { id: 'sat-0930', day: 'Сб', date: '6 сент', time: '09:30–10:30', group: 'sat' },
+  { id: 'sat-1030', day: 'Сб', date: '6 сент', time: '10:30–11:30', group: 'sat' },
+  { id: 'sat-1400', day: 'Сб', date: '6 сент', time: '14:00–15:00', group: 'sat' },
+  { id: 'sat-1500', day: 'Сб', date: '6 сент', time: '15:00–16:00', group: 'sat' },
+  { id: 'sat-1600', day: 'Сб', date: '6 сент', time: '16:00–17:00', group: 'sat' },
+  { id: 'sat-1700', day: 'Сб', date: '6 сент', time: '17:00–18:00', group: 'sat' },
+  { id: 'sat-1800', day: 'Сб', date: '6 сент', time: '18:00–19:00', group: 'sat' },
+  { id: 'sat-1900', day: 'Сб', date: '6 сент', time: '19:00–20:00', group: 'sat' },
+  { id: 'sat-2000', day: 'Сб', date: '6 сент', time: '20:00–21:00', group: 'sat' },
+  { id: 'sat-2100', day: 'Сб', date: '6 сент', time: '21:00–22:00', group: 'sat' },
+  { id: 'sun-1400', day: 'Вс', date: '7 сент', time: '14:00–15:00', group: 'sun' },
+  { id: 'sun-1500', day: 'Вс', date: '7 сент', time: '15:00–16:00', group: 'sun' },
+  { id: 'sun-1600', day: 'Вс', date: '7 сент', time: '16:00–17:00', group: 'sun' },
+  { id: 'sun-1700', day: 'Вс', date: '7 сент', time: '17:00–18:00', group: 'sun' },
+  { id: 'sun-1800', day: 'Вс', date: '7 сент', time: '18:00–19:00', group: 'sun' },
+  { id: 'sun-1900', day: 'Вс', date: '7 сент', time: '19:00–20:00', group: 'sun' },
+  { id: 'sun-2000', day: 'Вс', date: '7 сент', time: '20:00–21:00', group: 'sun' },
+  { id: 'sun-2100', day: 'Вс', date: '7 сент', time: '21:00–22:00', group: 'sun' },
+];
+
+let takenSlots = {};
+let selectedSlotId = null;
+let myBookedSlotId = null;
+let foundSlotId = null;
+
+function storageGet(key) {
+  try { const v = localStorage.getItem(STORAGE_KEY_PREFIX + key); return v ? JSON.parse(v) : null; } catch(e) { return null; }
+}
+
+function storageSet(key, val) {
+  try { localStorage.setItem(STORAGE_KEY_PREFIX + key, JSON.stringify(val)); } catch(e) {}
+}
+
+function storageDel(key) {
+  try { localStorage.removeItem(STORAGE_KEY_PREFIX + key); } catch(e) {}
+}
+
+function loadTaken() {
+  SLOTS.forEach(slot => {
+    const v = storageGet(slot.id);
+    if (v) takenSlots[slot.id] = v;
+  });
+  renderSlots();
+}
+
+function renderSlots() {
+  ['fri','sat','sun'].forEach(g => document.getElementById(g + '-slots').innerHTML = '');
+
+  SLOTS.forEach(slot => {
+    const taken = !!takenSlots[slot.id];
+    const selected = slot.id === selectedSlotId;
+    const isMine = slot.id === myBookedSlotId;
+
+    let cls = 'slot';
+    if (isMine) cls += ' mine';
+    else if (taken) cls += ' taken';
+    if (selected && !isMine) cls += ' selected';
+
+    const el = document.createElement('div');
+    el.className = cls;
+
+    let badge = '';
+    if (isMine) badge = '<span class="slot-badge">твоя запись</span>';
+    else if (taken) badge = '<span class="slot-badge">занято</span>';
+
+    el.innerHTML = `<span class="slot-time">${slot.time}</span><span class="slot-date">${slot.day}, ${slot.date}</span>${badge}`;
+
+    if (!taken && !isMine) {
+      el.onclick = () => selectSlot(slot.id);
+    }
+
+    document.getElementById(slot.group + '-slots').appendChild(el);
+  });
+}
+
+function selectSlot(id) {
+  if (takenSlots[id]) return;
+  selectedSlotId = id;
+  renderSlots();
+  const slot = SLOTS.find(s => s.id === id);
+  document.getElementById('slot-preview').innerHTML = `<strong>${slot.time}</strong> · ${slot.day}, ${slot.date}`;
+  const fs = document.getElementById('form-section');
+  fs.classList.add('visible');
+  setTimeout(() => fs.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+}
+
+async function sendTg(text) {
+  try {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: CHAT_ID, text })
+    });
+  } catch(e) {}
+}
+
+async function handleSubmit() {
+  const name = document.getElementById('name-input').value.trim();
+  const tg = document.getElementById('tg-input').value.trim();
+  let valid = true;
+
+  document.getElementById('name-error').style.display = 'none';
+  document.getElementById('tg-error').style.display = 'none';
+
+  if (!name) { document.getElementById('name-error').style.display = 'block'; valid = false; }
+  if (!tg) { document.getElementById('tg-error').style.display = 'block'; valid = false; }
+  if (!selectedSlotId || !valid) return;
+
+  if (takenSlots[selectedSlotId]) {
+    alert('Этот слот только что заняли. Выбери другое время.');
+    renderSlots();
+    return;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Отправляем...';
+
+  const slot = SLOTS.find(s => s.id === selectedSlotId);
+  const tgHandle = tg.startsWith('@') ? tg : '@' + tg;
+  const data = { name, tg: tgHandle, time: slot.time, date: `${slot.day}, ${slot.date}` };
+
+  storageSet(selectedSlotId, data);
+  takenSlots[selectedSlotId] = data;
+  myBookedSlotId = selectedSlotId;
+
+  await sendTg(`📅 Новая запись\n${slot.time} · ${slot.day}, ${slot.date}\n${tgHandle} (${name})`);
+
+  document.getElementById('main-form').style.display = 'none';
+  const success = document.getElementById('success-screen');
+  success.classList.add('visible');
+  document.getElementById('success-title').textContent = `${slot.time} — записал!`;
+  document.getElementById('success-sub').textContent = `Стас напишет тебе в Telegram (${tgHandle}) и подтвердит встречу.`;
+
+  const pcb = document.getElementById('post-cancel-btn');
+  pcb.style.display = 'block';
+  pcb._slotId = selectedSlotId;
+  pcb._tgHandle = tgHandle;
+  pcb._slot = slot;
+}
+
+async function handlePostCancel() {
+  const btn = document.getElementById('post-cancel-btn');
+  if (!confirm('Отменить запись?')) return;
+  btn.disabled = true;
+  btn.textContent = 'Отменяем...';
+
+  storageDel(btn._slotId);
+  delete takenSlots[btn._slotId];
+  await sendTg(`❌ Отмена записи\n${btn._slot.time} · ${btn._slot.day}, ${btn._slot.date}\n${btn._tgHandle}`);
+
+  myBookedSlotId = null;
+  selectedSlotId = null;
+  document.getElementById('success-screen').classList.remove('visible');
+  document.getElementById('main-form').style.display = 'block';
+  document.getElementById('form-section').classList.remove('visible');
+  document.getElementById('cancel-notice').classList.add('visible');
+  renderSlots();
+}
+
+async function handleLookup() {
+  const val = document.getElementById('lookup-input').value.trim();
+  document.getElementById('lookup-error').style.display = 'none';
+  document.getElementById('lookup-notfound').style.display = 'none';
+  document.getElementById('lookup-result').classList.remove('visible');
+  foundSlotId = null;
+
+  if (!val) { document.getElementById('lookup-error').style.display = 'block'; return; }
+  const handle = val.startsWith('@') ? val.toLowerCase() : ('@' + val).toLowerCase();
+
+  for (const [slotId, data] of Object.entries(takenSlots)) {
+    if (data.tg && data.tg.toLowerCase() === handle) {
+      foundSlotId = slotId;
+      const slot = SLOTS.find(s => s.id === slotId);
+      document.getElementById('lookup-result-text').innerHTML =
+        `Запись найдена: <strong>${slot.time} · ${slot.day}, ${slot.date}</strong>`;
+      document.getElementById('lookup-result').classList.add('visible');
+      return;
+    }
+  }
+  document.getElementById('lookup-notfound').style.display = 'block';
+}
+
+async function handleCancel() {
+  if (!foundSlotId) return;
+  if (!confirm('Отменить запись?')) return;
+
+  const btn = document.getElementById('cancel-btn');
+  btn.disabled = true;
+  btn.textContent = 'Отменяем...';
+
+  const slot = SLOTS.find(s => s.id === foundSlotId);
+  const data = takenSlots[foundSlotId];
+
+  storageDel(foundSlotId);
+  delete takenSlots[foundSlotId];
+
+  await sendTg(`❌ Отмена записи\n${slot.time} · ${slot.day}, ${slot.date}\n${data ? data.tg : ''}`);
+
+  foundSlotId = null;
+  document.getElementById('lookup-result').classList.remove('visible');
+  document.getElementById('lookup-input').value = '';
+  document.getElementById('cancel-notice').classList.add('visible');
+  renderSlots();
+
+  btn.disabled = false;
+  btn.textContent = 'Отменить запись';
+}
+
+loadTaken();
+</script>
+</body>
+</html>
